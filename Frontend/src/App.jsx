@@ -19,6 +19,9 @@ import AttendancePage from './pages/AttendancePage';
 import EnquiryPage from './pages/EnquiryPage'; 
 import SettingsPage from './pages/SettingsPage';
 
+
+
+
 const MainLayout = () => (
   <>
     <Header />
