@@ -131,14 +131,16 @@ const UsersPage = () => {
 
     const activeUserIds = new Set(
       bookings
-        .filter(b => new Date(b.endDate) >= today)
+        .filter(b => b.user && new Date(b.endDate) >= today)
         .map(b => (typeof b.user === 'object' ? b.user._id : b.user))
     );
 
     const filtered = users.filter((user) => {
+        if (!user) return false;
+        
         const matchesSearch = lowerSearchTerm === '' || 
-            user.username.toLowerCase().includes(lowerSearchTerm) ||
-            user.contactNo.includes(lowerSearchTerm);
+            user.username?.toLowerCase().includes(lowerSearchTerm) ||
+            user.contactNo?.includes(lowerSearchTerm);
 
         if (!matchesSearch) return false;
 

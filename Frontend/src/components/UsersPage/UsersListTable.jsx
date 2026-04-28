@@ -18,6 +18,7 @@ const UsersListTable = ({ users, bookings, onEditUser, onDeleteUser }) => {
     // Check for active booking
     // Note: b.user can be an object (if populated) or string (if ref)
     const activeBooking = bookings.find(b => {
+      if (!b.user) return false;
       const bookingUserId = typeof b.user === 'object' ? b.user._id : b.user;
       return bookingUserId === userId && new Date(b.endDate) >= now;
     });

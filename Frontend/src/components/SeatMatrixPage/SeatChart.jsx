@@ -5,6 +5,15 @@ import { Edit2, Trash2, Plus, ArrowUpRight } from 'lucide-react';
 
 const UserSlot = ({ slot, onEdit, onDelete, onShowDetails }) => {
   const { user, booking } = slot;
+  
+  if (!user) {
+    return (
+      <div className="h-full p-2.5 rounded-lg border border-red-300 bg-red-50 dark:bg-red-900/20 flex items-center justify-center">
+        <p className="text-xs text-red-600 dark:text-red-400 font-semibold">User data missing</p>
+      </div>
+    );
+  }
+  
   const renewalStatus = getRenewalStatus(booking.endDate);
 
   const statusColors = {
