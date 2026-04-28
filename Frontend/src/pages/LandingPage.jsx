@@ -328,7 +328,7 @@ const LandingPage = () => {
 
             <button
               type="button"
-              onClick={() => navigate("/login")}
+              onClick={() => scrollTo("modules")}
               className="landing-shiny-outline inline-flex items-center justify-center rounded-full border border-[#d9dde3] bg-white px-5 py-2 text-sm font-semibold text-slate-700 transition hover:-translate-y-0.5 hover:border-[#c8b8ff] hover:text-[#9d8ee8]"
             >
               Contact
@@ -362,7 +362,7 @@ const LandingPage = () => {
                 <div className="mt-5 flex flex-col gap-3 sm:flex-row">
                   <button
                     type="button"
-                    onClick={() => navigate("/login")}
+                    onClick={() => scrollTo("modules")}
                     className="landing-shiny-btn inline-flex items-center justify-center gap-2 rounded-full bg-[linear-gradient(135deg,#b8a0ff_0%,#92d9f8_100%)] px-5 py-3 text-sm font-semibold text-white shadow-[0_20px_44px_rgba(167,160,255,0.34)] transition hover:-translate-y-0.5 hover:brightness-105 sm:px-6 sm:text-base"
                   >
                     Join the System
@@ -371,7 +371,7 @@ const LandingPage = () => {
 
                   <button
                     type="button"
-                    onClick={() => scrollTo("overview")}
+                    onClick={() => scrollTo("modules")}
                     className="landing-shiny-outline inline-flex items-center justify-center gap-2 rounded-full border border-[#dfd7f6] bg-white/95 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:-translate-y-0.5 hover:border-[#c8b8ff] hover:text-[#8d7ad9] sm:px-6 sm:text-base"
                   >
                     Learn more
@@ -421,50 +421,120 @@ const LandingPage = () => {
             </div>
           </section>
 
-          <section id="modules" className="py-10 px-6 relative">
+          <section id="modules" className="py-12 sm:py-16 px-4 sm:px-6 relative bg-gradient-to-b from-white to-[#f8fbf4]">
             <div className="max-w-7xl mx-auto">
-              <div className="text-center mb-8">
-                <p className="text-brand-teal font-semibold text-sm uppercase tracking-widest mb-3">
+              
+              {/* Section Header */}
+              <div className="text-center mb-10 sm:mb-12">
+                <p className="text-brand-teal font-semibold text-xs sm:text-sm uppercase tracking-widest mb-2 sm:mb-3">
                   Popular Modules
                 </p>
-                <h2 className="font-display font-bold text-4xl md:text-5xl text-skin-text mb-4">
+                <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-slate-900 mb-3 sm:mb-4">
                   Everything You Need
                 </h2>
-                <p className="text-skin-muted text-lg max-w-2xl mx-auto">
-                  Powerful tools for library management
+                <p className="text-slate-600 text-sm sm:text-lg max-w-2xl mx-auto">
+                  Powerful tools designed for modern library management
                 </p>
               </div>
 
-              {/* Horizontal Scrollable Container */}
-              <div className="relative -mx-4 px-4">
-                <div
-                  className="flex gap-6 overflow-x-auto snap-x snap-mandatory"
-                  style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-                >
-                  {moduleCards.map((module) => {
+              {/* Grid Layout with Images */}
+              <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center mb-12">
+                
+                {/* Left: Image */}
+                <div className="relative order-2 lg:order-1">
+                  <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+                    <img 
+                      src="/section1.png" 
+                      alt="Library Management Dashboard" 
+                      className="w-full h-auto object-cover"
+                    />
+                  </div>
+                  {/* Floating Badge */}
+                  <div className="absolute -top-4 -right-4 bg-white rounded-2xl shadow-xl px-4 py-3 border border-slate-200">
+                    <p className="text-2xl font-bold text-[#9d8ee8]">100+</p>
+                    <p className="text-xs text-slate-600">Seats Managed</p>
+                  </div>
+                </div>
+
+                {/* Right: Module Cards */}
+                <div className="space-y-4 order-1 lg:order-2">
+                  {moduleCards.slice(0, 2).map((module) => {
                     const Icon = module.icon;
                     return (
                       <div
                         key={module.title}
-                        className="group bg-skin-surface border border-skin-border rounded-2xl p-6 hover:border-brand-teal hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex-shrink-0 w-[280px] snap-center"
+                        className="group bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 hover:border-[#9d8ee8] hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
                       >
-                        <div
-                          className={`w-14 h-14 rounded-xl bg-gradient-to-br ${module.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
-                        >
-                          <Icon className="w-7 h-7 text-white" />
+                        <div className="flex items-start gap-4">
+                          <div
+                            className={`w-12 sm:w-14 h-12 sm:h-14 rounded-xl bg-gradient-to-br ${module.color} flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform`}
+                          >
+                            <Icon className="w-6 sm:w-7 h-6 sm:h-7 text-white" />
+                          </div>
+                          <div className="flex-1">
+                            <h3 className="font-display font-bold text-lg sm:text-xl text-slate-900 mb-1">
+                              {module.title}
+                            </h3>
+                            <p className="text-slate-600 text-sm leading-relaxed">
+                              {module.description}
+                            </p>
+                          </div>
                         </div>
-
-                        <h3 className="font-display font-bold text-xl text-skin-text mb-2">
-                          {module.title}
-                        </h3>
-                        <p className="text-skin-muted text-sm leading-relaxed">
-                          {module.description}
-                        </p>
                       </div>
                     );
                   })}
                 </div>
               </div>
+
+              {/* Second Row - Reversed */}
+              <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+                
+                {/* Left: Module Cards */}
+                <div className="space-y-4">
+                  {moduleCards.slice(2, 4).map((module) => {
+                    const Icon = module.icon;
+                    return (
+                      <div
+                        key={module.title}
+                        className="group bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 hover:border-[#9d8ee8] hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                      >
+                        <div className="flex items-start gap-4">
+                          <div
+                            className={`w-12 sm:w-14 h-12 sm:h-14 rounded-xl bg-gradient-to-br ${module.color} flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform`}
+                          >
+                            <Icon className="w-6 sm:w-7 h-6 sm:h-7 text-white" />
+                          </div>
+                          <div className="flex-1">
+                            <h3 className="font-display font-bold text-lg sm:text-xl text-slate-900 mb-1">
+                              {module.title}
+                            </h3>
+                            <p className="text-slate-600 text-sm leading-relaxed">
+                              {module.description}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Right: Image */}
+                <div className="relative">
+                  <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+                    <img 
+                      src="/section2.png" 
+                      alt="Library Attendance System" 
+                      className="w-full h-auto object-cover"
+                    />
+                  </div>
+                  {/* Floating Badge */}
+                  <div className="absolute -bottom-4 -left-4 bg-white rounded-2xl shadow-xl px-4 py-3 border border-slate-200">
+                    <p className="text-2xl font-bold text-[#9d8ee8]">99.9%</p>
+                    <p className="text-xs text-slate-600">Uptime</p>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </section>
 
@@ -515,7 +585,7 @@ const LandingPage = () => {
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
                   <button
                     type="button"
-                    onClick={() => navigate("/login")}
+                    onClick={() => scrollTo("modules")}
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-white text-[#9d8ee8] rounded-full font-bold text-sm sm:text-base shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all"
                   >
                     Access Admin Panel
@@ -550,35 +620,54 @@ const LandingPage = () => {
           </section>
         </main>
 
-        <footer className="relative z-10">
-          <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 py-10 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
-            <div className="flex items-center gap-4">
-              <span className="flex h-14 w-14 items-center justify-center rounded-[18px] bg-[#f2ecff] text-[#a896ef] shadow-[0_16px_32px_rgba(174,155,243,0.16)]">
-                <LibraryLogoIcon className="h-7 w-7" />
-              </span>
-              <div>
-                <p className="font-display text-2xl font-bold text-[#9d8ee8]">
-                  {libraryName}
-                </p>
-                <p className="text-sm text-slate-500">
-                  Library admin interface for seats, users, bookings and
-                  attendance.
-                </p>
+        <footer className="relative z-10 bg-white border-t border-slate-200">
+          <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+              <div className="flex items-center gap-4">
+                <span className="flex h-14 w-14 items-center justify-center rounded-[18px] bg-[#f2ecff] text-[#a896ef] shadow-[0_16px_32px_rgba(174,155,243,0.16)]">
+                  <LibraryLogoIcon className="h-7 w-7" />
+                </span>
+                <div>
+                  <p className="font-display text-2xl font-bold text-[#9d8ee8]">
+                    {libraryName}
+                  </p>
+                  <p className="text-sm text-slate-500">
+                    Library admin interface for seats, users, bookings and
+                    attendance.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-4 text-sm font-semibold text-slate-500">
+                {footerLinks.map((link) => (
+                  <span key={link} className="transition hover:text-[#9d8ee8] cursor-pointer">
+                    {link}
+                  </span>
+                ))}
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-4 text-sm font-semibold text-slate-500">
-              {footerLinks.map((link) => (
-                <span key={link} className="transition hover:text-[#9d8ee8]">
-                  {link}
-                </span>
-              ))}
+            {/* Developer Credit */}
+            <div className="mt-8 pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <p className="text-sm text-slate-500">
+                &copy; {new Date().getFullYear()} {libraryName}. All rights reserved.
+              </p>
+              <div className="flex items-center gap-2 text-sm text-slate-600">
+                <span>Made with ❤️ by</span>
+                <a 
+                  href="https://www.linkedin.com/in/shivam-kumar108/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="font-semibold text-[#9d8ee8] hover:text-[#8d7ad9] transition-colors inline-flex items-center gap-1"
+                >
+                  Shivam Kumar
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                  </svg>
+                </a>
+                <span className="text-slate-400">• Software Engineer</span>
+              </div>
             </div>
-
-            <p className="text-sm text-slate-500">
-              &copy; {new Date().getFullYear()} {libraryName}. All rights
-              reserved.
-            </p>
           </div>
         </footer>
       </div>
