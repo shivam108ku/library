@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "Pariksha Library Backend Server",
+  "description": "Nearest Library Backend Server",
   "license": "ISC",
   "author": "Prem Siddhartha",
   "type": "commonjs",

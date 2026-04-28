@@ -1,13 +1,14 @@
-import React, { useState } from 'react'; // Added useState
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router';
-// import LibraryLogoIcon from '../Icons/LibraryLogoIcon'; 
-import { User, LogOut, Settings, Menu, X } from 'lucide-react'; // Added Menu & X icons
+import { User, LogOut, Settings, Menu, X } from 'lucide-react';
+import { logoutAdmin } from '../../slices/authSlice';
 
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { admin } = useSelector(state => state.authSlice);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State for mobile menu
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
     { name: 'Dashboard', path: '/' },
@@ -17,9 +18,9 @@ const Header = () => {
     { name: 'Attendance', path: '/attendance' },
   ];
 
-  const handleLogout = () => {
-     // Add your logout logic here
-     console.log("Logging out...");
+  const handleLogout = async () => {
+    await dispatch(logoutAdmin());
+    navigate('/login', { replace: true });
   };
 
   return (
@@ -32,11 +33,11 @@ const Header = () => {
             <div className="bg-brand-teal/10 p-1 rounded-full">
                 <img 
                     src={import.meta.env.VITE_LIBRARY_LOGO_URL} 
-                    alt={import.meta.env.VITE_LIBRARY_NAME + " Library Logo"} 
+                    alt={`${import.meta.env.VITE_LIBRARY_NAME || 'Nearest Library'} Logo`} 
                     className="h-10 w-10 sm:h-12 sm:w-12 text-brand-teal rounded-full object-contain"
                 />
             </div>
-            <span className="text-lg sm:text-xl font-serif font-bold text-skin-text tracking-wide truncate max-w-[150px] sm:max-w-none">
+            <span className="text-lg sm:text-xl font-display font-bold text-skin-text tracking-tight truncate max-w-[150px] sm:max-w-none">
               {import.meta.env.VITE_LIBRARY_NAME} <span className="text-brand-teal">Admin</span>
             </span>
           </div>

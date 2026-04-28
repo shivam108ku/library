@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import LoginPage from './pages/LoginPage'
+import LandingPage from './pages/LandingPage'
 import LoadingComponent from './components/common/LoadingComponent'
 import DashboardPage from './pages/DashboardPage'
 import SeatMatrixPage from './pages/SeatMatrixPage'
@@ -15,7 +16,6 @@ import UserDetailsPage from './pages/UserDetailsPage';
 import SeatDetailsPage from './pages/SeatDetailsPage';
 import AttendanceTrackerPage from './pages/AttendanceTrackerPage';
 import AttendancePage from './pages/AttendancePage';
-// 1. Import the new page
 import EnquiryPage from './pages/EnquiryPage'; 
 import SettingsPage from './pages/SettingsPage';
 
@@ -51,17 +51,20 @@ function App() {
   }, [appearance, accent]);
 
   useEffect(() => {
-    dispatch(authenticateAdmin());
-  }, []);
+    // Only authenticate on initial mount, not after logout
+    if (!isAuthenticated) {
+      dispatch(authenticateAdmin());
+    }
+  }, [dispatch]);
 
   if(loading) return <LoadingComponent/>
 
   if(isAuthenticated) 
   return (
     <Routes>
-      
       <Route element={<MainLayout />}>
         <Route path='/' element={<DashboardPage />} />
+        <Route path='/login' element={<DashboardPage />} />
         <Route path='/settings' element={<SettingsPage/>} />
         <Route path='/seats' element={<SeatMatrixPage />} />
         <Route path='/seats/:seatNumber' element={<SeatDetailsPage />} />
@@ -70,8 +73,6 @@ function App() {
         <Route path='/bookings' element={<BookingsPage/>} />
         <Route path='/admin/profile' element={<AdminProfilePage/>} />
         <Route path='/attendance' element={<AttendancePage/>} />
-        
-        {/* 2. Add the route here */}
         <Route path='/enquiries' element={<EnquiryPage/>} />
       </Route>
 
@@ -80,7 +81,12 @@ function App() {
     </Routes>
   )
 
-  return <LoginPage />
+  return (
+    <Routes>
+      <Route path='/' element={<LandingPage />} />
+      <Route path='/login' element={<LoginPage />} />
+    </Routes>
+  )
 }
 
 export default App

@@ -52,7 +52,7 @@ app.listen(process.env.PORT_NO, async () => {
     try{
     // connecting with database and redis
     await Promise.all([main(), redisClient.connect()]);
-    console.log("Pariksha Library Backend Server started at port", process.env.PORT_NO);
+    console.log("Nearest Library Backend Server started at port", process.env.PORT_NO);
     } catch (error) {
         console.log(error.message);
     }

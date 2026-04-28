@@ -245,7 +245,7 @@ const BookingsPage = () => {
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(22);
             doc.setFont("helvetica", "bold");
-            doc.text(`Pariksha Library Report`, 14, 17);
+            doc.text(`${import.meta.env.VITE_LIBRARY_NAME || 'Nearest Library'} Report`, 14, 17);
 
             doc.setFontSize(10);
             doc.setFont("helvetica", "normal");
@@ -405,7 +405,7 @@ const BookingsPage = () => {
                     doc.setTextColor(150, 150, 150);
                     
                     // Left Footer
-                    doc.text(`Pariksha Library - Internal Report`, 14, pageHeight - 10);
+                    doc.text(`${import.meta.env.VITE_LIBRARY_NAME || 'Nearest Library'} - Internal Report`, 14, pageHeight - 10);
                     
                     // Right Footer (Page Number)
                     const str = 'Page ' + doc.internal.getNumberOfPages();
@@ -443,7 +443,7 @@ const BookingsPage = () => {
             drawLegendItem(90, "1st Shift (Sun)", COLOR_FIRST);
             drawLegendItem(120, "2nd Shift (Moon)", COLOR_SECOND);
 
-            doc.save(`Pariksha_Report_${monthName}_${new Date().toISOString().slice(0, 10)}.pdf`);
+            doc.save(`Nearest_Library_Report_${monthName}_${new Date().toISOString().slice(0, 10)}.pdf`);
         } catch (err) {
             console.error("PDF Download failed", err);
             alert("Failed to generate PDF.");

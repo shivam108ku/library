@@ -11,8 +11,8 @@ const logoutAdmin = async (req, res) => {
         // Clear cookie securely
         res.clearCookie("token", {
             httpOnly: true,
-            sameSite: "strict",
-            secure: process.env.NODE_ENV === "production"
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
         });
         
         res.status(200).json({

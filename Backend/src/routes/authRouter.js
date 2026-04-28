@@ -16,7 +16,7 @@ authRouter.get("/admin/check", verifyToken, sendAdminBasicDetails);
 authRouter.post("/admin/login", loginAdmin);
 
 // admin logout
-authRouter.post("admin/logout", verifyToken, logoutAdmin);
+authRouter.post("/admin/logout", verifyToken, logoutAdmin);
 
 // registering new admin
 authRouter.post("/admin/register", verifyToken, isOwner, createNewAdmin);

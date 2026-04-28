@@ -1,104 +1,132 @@
-import React, { useState } from 'react';
-import LibraryLogoIcon from '../components/Icons/LibraryLogoIcon';
+import React, { useState, useEffect } from 'react';
 import { loginAdmin } from '../slices/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { Phone, Lock, ArrowRight, Loader2 } from 'lucide-react';
+import { Phone, Lock, ArrowRight, Loader2, BookOpen, ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router';
 
 const LoginPage = () => {
   const [phoneNo, setPhoneNo] = useState('');
   const [password, setPassword] = useState('');
-  
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
-  const { loading, error } = useSelector(state => state.authSlice);
+  const { loading, error, isAuthenticated } = useSelector(state => state.authSlice);
+
+  // Redirect to dashboard after successful login
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleSubmit = (e) => {
-    e.preventDefault(); 
-    const data = { phoneNo, password, libraryName: import.meta.env.VITE_LIBRARY_CODE };
-    dispatch(loginAdmin(data));
+    e.preventDefault();
+    dispatch(loginAdmin({ phoneNo, password, libraryName: import.meta.env.VITE_LIBRARY_CODE }));
   };
 
   return (
-    <div className="flex min-h-screen bg-skin-base relative overflow-hidden transition-colors duration-300">
+    <div className="min-h-screen flex items-center justify-center bg-skin-base px-6 py-12 relative overflow-hidden">
       
-      {/* Decorative Background Elements */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-brand-teal/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-blue-100/30 dark:bg-blue-900/10 rounded-full blur-3xl"></div>
+      {/* Background decoration */}
+      <div className="absolute inset-0">
+        <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-brand-teal/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-3xl" />
+        <div className="absolute inset-0 opacity-[0.02]" 
+          style={{ backgroundImage: 'radial-gradient(circle, rgb(var(--color-primary)) 1px, transparent 1px)', backgroundSize: '28px 28px' }} />
       </div>
 
-      <div className="m-auto w-full max-w-md p-6 relative z-10">
+      <div className="w-full max-w-md relative z-10">
         
-        <div className="bg-skin-surface rounded-3xl shadow-xl border border-skin-border p-8 sm:p-10 animate-in fade-in zoom-in duration-500">
+        {/* Back button */}
+        <button
+          onClick={() => navigate('/')}
+          className="flex items-center gap-2 text-skin-muted hover:text-brand-teal transition-colors mb-8 group"
+        >
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+          <span className="text-sm font-medium">Back to Home</span>
+        </button>
+
+        {/* Card */}
+        <div className="bg-skin-surface rounded-3xl border border-skin-border p-8 shadow-2xl">
           
-          <div className="text-center mb-10">
-            <div className="inline-flex items-center justify-center p-3 bg-brand-teal/10 rounded-2xl mb-4 shadow-sm">
-              <LibraryLogoIcon className="w-10 h-10 text-brand-teal" />
+          {/* Logo + Title */}
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-teal to-purple-500 mb-4 shadow-lg">
+              <BookOpen className="w-8 h-8 text-white" />
             </div>
-            <h1 className="text-3xl font-serif font-bold text-skin-text mb-2">Welcome Back</h1>
-            <p className="text-skin-muted text-sm">Sign in to access the Admin Panel</p>
+            <h1 className="font-display font-bold text-3xl text-skin-text mb-2">Admin Login</h1>
+            <p className="text-skin-muted text-sm">Sign in to access your dashboard</p>
           </div>
 
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div className="space-y-4">
-                <div className="relative group">
-                    <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-skin-muted group-focus-within:text-brand-teal transition-colors" />
-                    <input
-                    id="phoneNo"
-                    name="phoneNo"
-                    type="tel"
-                    required
-                    value={phoneNo}
-                    onChange={(e) => setPhoneNo(e.target.value)}
-                    pattern="[0-9]{10}"
-                    className="w-full pl-12 pr-4 py-3.5 bg-skin-base border border-skin-border rounded-xl text-skin-text placeholder-skin-muted/50 focus:outline-none focus:ring-2 focus:ring-brand-teal/20 focus:border-brand-teal transition-all text-sm font-medium"
-                    placeholder="Mobile Number"
-                    />
-                </div>
-
-                <div className="relative group">
-                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-skin-muted group-focus-within:text-brand-teal transition-colors" />
-                    <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full pl-12 pr-4 py-3.5 bg-skin-base border border-skin-border rounded-xl text-skin-text placeholder-skin-muted/50 focus:outline-none focus:ring-2 focus:ring-brand-teal/20 focus:border-brand-teal transition-all text-sm font-medium"
-                    placeholder="Password"
-                    />
-                </div>
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="space-y-5">
+            
+            {/* Phone */}
+            <div>
+              <label className="block text-xs font-semibold text-skin-muted uppercase tracking-wider mb-2">
+                Mobile Number
+              </label>
+              <div className="relative group">
+                <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-skin-muted group-focus-within:text-brand-teal transition-colors" />
+                <input
+                  type="tel"
+                  required
+                  value={phoneNo}
+                  onChange={(e) => setPhoneNo(e.target.value)}
+                  pattern="[0-9]{10}"
+                  placeholder="10-digit mobile number"
+                  className="w-full pl-12 pr-4 py-3.5 bg-skin-base border border-skin-border rounded-xl text-skin-text placeholder-skin-muted/40 text-sm focus:outline-none focus:ring-2 focus:border-brand-teal transition-all"
+                  style={{ '--tw-ring-color': 'rgb(var(--color-primary) / 0.2)' }}
+                />
+              </div>
             </div>
 
+            {/* Password */}
+            <div>
+              <label className="block text-xs font-semibold text-skin-muted uppercase tracking-wider mb-2">
+                Password
+              </label>
+              <div className="relative group">
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-skin-muted group-focus-within:text-brand-teal transition-colors" />
+                <input
+                  type="password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter your password"
+                  className="w-full pl-12 pr-4 py-3.5 bg-skin-base border border-skin-border rounded-xl text-skin-text placeholder-skin-muted/40 text-sm focus:outline-none focus:ring-2 focus:border-brand-teal transition-all"
+                  style={{ '--tw-ring-color': 'rgb(var(--color-primary) / 0.2)' }}
+                />
+              </div>
+            </div>
+
+            {/* Error */}
             {error && (
-                <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-500/30 rounded-lg text-xs text-red-600 dark:text-red-300 text-center font-medium animate-in slide-in-from-top-2">
-                    {error}
-                </div>
+              <div className="flex items-center gap-2 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-500/30 rounded-xl text-xs text-red-600 dark:text-red-400 font-medium">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-500 shrink-0" />
+                {error}
+              </div>
             )}
 
+            {/* Submit */}
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3.5 bg-brand-teal text-white rounded-xl font-bold shadow-lg shadow-brand-teal/30 hover:bg-brand-teal-hover hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+              className="w-full py-4 rounded-xl text-white font-semibold text-sm flex items-center justify-center gap-2 transition-all hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0 disabled:opacity-60 disabled:cursor-not-allowed disabled:translate-y-0 mt-6 shadow-lg"
+              style={{ background: 'linear-gradient(135deg, rgb(var(--color-primary)), rgb(var(--color-primary-hover)))' }}
             >
               {loading ? (
-                  <>
-                    <Loader2 className="w-5 h-5 animate-spin" /> Signing In...
-                  </>
+                <><Loader2 className="w-5 h-5 animate-spin" /> Signing in...</>
               ) : (
-                  <>
-                    Sign In <ArrowRight className="w-5 h-5" />
-                  </>
+                <>Sign In <ArrowRight className="w-5 h-5" /></>
               )}
             </button>
           </form>
 
-          <div className="mt-8 pt-6 border-t border-skin-border text-center">
-            <p className="text-xs text-skin-muted">
-                {import.meta.env.VITE_LIBRARY_NAME} Library Management System &copy; {new Date().getFullYear()}
-            </p>
-          </div>
-
+          {/* Footer */}
+          <p className="text-center text-xs text-skin-muted mt-6">
+            &copy; {new Date().getFullYear()} {import.meta.env.VITE_LIBRARY_NAME || 'Nearest Library'}
+          </p>
         </div>
       </div>
     </div>

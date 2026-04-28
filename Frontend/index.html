@@ -3,14 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pariksha Library Admin Panel</title>
+    <title>Nearest Library Admin Panel</title>
     
     <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/dca2tsaf6/image/upload/v1765696509/parikshaLibrarylogo_ehqywu.jpg">
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <!-- Modern Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Crimson+Pro:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
       :root {
@@ -68,32 +70,32 @@
       ========================================= */
 
       [data-accent='blue'] {
-        --color-primary: 4 146 194;          /* Cerulean */
-        --color-primary-hover: 3 116 156;
-        --color-primary-light: 240 249 255; /* Note: In dark mode this might need opacity adjustment via Tailwind classes */
+        --color-primary: 14 165 233;          /* sky-500 - darker blue */
+        --color-primary-hover: 2 132 199;     /* sky-600 */
+        --color-primary-light: 240 249 255;
       }
 
       [data-accent='emerald'] {
-        --color-primary: 16 185 129; 
-        --color-primary-hover: 5 150 105;
+        --color-primary: 5 150 105;       /* emerald-600 - darker */
+        --color-primary-hover: 4 120 87;  /* emerald-700 */
         --color-primary-light: 236 253 245;
       }
 
       [data-accent='purple'] {
-        --color-primary: 139 92 246; 
-        --color-primary-hover: 124 58 237;
+        --color-primary: 124 58 237;      /* violet-600 - darker */
+        --color-primary-hover: 109 40 217; /* violet-700 */
         --color-primary-light: 245 243 255;
       }
 
       [data-accent='orange'] {
-        --color-primary: 249 115 22; 
-        --color-primary-hover: 234 88 12;
+        --color-primary: 234 88 12;       /* orange-600 - darker */
+        --color-primary-hover: 194 65 12; /* orange-700 */
         --color-primary-light: 255 247 237;
       }
 
       [data-accent='rose'] {
-        --color-primary: 244 63 94; 
-        --color-primary-hover: 225 29 72;
+        --color-primary: 225 29 72;       /* rose-600 - darker */
+        --color-primary-hover: 190 18 60; /* rose-700 */
         --color-primary-light: 255 241 242;
       }
 
@@ -105,7 +107,11 @@
       }
 
       h1, h2, h3, h4, h5, h6 {
-        font-family: 'Playfair Display', serif;
+        font-family: 'Space Grotesk', sans-serif;
+      }
+
+      body {
+        font-family: 'Poppins', sans-serif;
       }
 
       /* Custom Scrollbar */
@@ -131,8 +137,9 @@
         theme: {
           extend: {
             fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-              serif: ['Playfair Display', 'serif'],
+              sans: ['Poppins', 'sans-serif'],
+              display: ['Space Grotesk', 'sans-serif'],
+              serif: ['Crimson Pro', 'serif'],
             },
             colors: {
               brand: {

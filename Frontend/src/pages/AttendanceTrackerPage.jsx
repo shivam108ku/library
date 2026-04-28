@@ -182,7 +182,7 @@ const AttendanceTrackerPage = () => {
       {/* 2. HEADER LAYER */}
       <div className="absolute top-0 left-0 w-full p-4 md:p-6 z-10 flex justify-between items-start bg-gradient-to-b from-black/80 to-transparent">
         <div>
-            <h1 className="text-xl md:text-3xl font-serif font-bold text-brand-teal drop-shadow-lg">Pariksha Library</h1>
+            <h1 className="text-xl md:text-3xl font-serif font-bold text-brand-teal drop-shadow-lg">{import.meta.env.VITE_LIBRARY_NAME || 'Nearest Library'}</h1>
             <div className="flex items-center gap-2 text-white/90 text-xs md:text-sm font-medium mt-1">
                 <span className={`w-2.5 h-2.5 rounded-full ${viewMode === 'SCAN' ? 'bg-green-500 animate-pulse' : 'bg-yellow-500'}`}></span>
                 {viewMode === 'SCAN' ? 'Ready to Scan' : 'Processing...'}

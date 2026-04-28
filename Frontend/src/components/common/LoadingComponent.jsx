@@ -9,7 +9,7 @@ const LoadingComponent = () => {
         <div className="bg-brand-teal/10 p-4 rounded-xl mb-4">
             <LibraryLogoIcon className="w-12 h-12 text-brand-teal" />
         </div>
-        <h1 className="text-2xl font-serif font-bold text-skin-text mb-2">{import.meta.env.VITE_LIBRARY_NAME + " Library"}</h1>
+        <h1 className="text-2xl font-serif font-bold text-skin-text mb-2">{import.meta.env.VITE_LIBRARY_NAME || 'Nearest Library'}</h1>
         <p className="text-skin-muted text-sm mb-6">Admin Panel</p>
         <LoadingSpinner />
       </div>
