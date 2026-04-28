@@ -271,6 +271,7 @@ const LandingPage = () => {
   const [galleryShift, setGalleryShift] = useState(0);
 
   const libraryName = import.meta.env.VITE_LIBRARY_NAME || "Nearest Library";
+  const libraryLogo = import.meta.env.VITE_LIBRARY_LOGO_URL || "/parikshaLibrarylogo.jpg";
 
   useEffect(() => {
     setIsVisible(true);
@@ -305,8 +306,8 @@ const LandingPage = () => {
               onClick={() => scrollTo("hero")}
               className="flex items-center gap-3 text-left"
             >
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#f2ecff] text-[#a896ef] shadow-sm">
-                <LibraryLogoIcon className="h-5 w-5" />
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#f2ecff] shadow-sm overflow-hidden">
+                <img src={libraryLogo} alt={libraryName} className="h-full w-full object-cover" />
               </span>
               <span className="font-display text-xl font-bold tracking-tight text-[#9d8ee8] sm:text-2xl">
                 {libraryName}
@@ -641,8 +642,8 @@ const LandingPage = () => {
           <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
               <div className="flex items-center gap-4">
-                <span className="flex h-14 w-14 items-center justify-center rounded-[18px] bg-[#f2ecff] text-[#a896ef] shadow-[0_16px_32px_rgba(174,155,243,0.16)]">
-                  <LibraryLogoIcon className="h-7 w-7" />
+                <span className="flex h-14 w-14 items-center justify-center rounded-[18px] bg-[#f2ecff] shadow-[0_16px_32px_rgba(174,155,243,0.16)] overflow-hidden">
+                  <img src={libraryLogo} alt={libraryName} className="h-full w-full object-cover" />
                 </span>
                 <div>
                   <p className="font-display text-2xl font-bold text-[#9d8ee8]">
